@@ -103,7 +103,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\dev\glew-2.0.0\include;C:\dev\glm-0.9.8.3\glm;C:\dev\glfw-3.2.1.bin.WIN64\include\GLFW;C:\dev\DevIL Windows SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\bullet3-2.86.1\src;C:\dev\glew-2.0.0\include;C:\dev\glm-0.9.8.3\glm;C:\dev\glfw-3.2.1.bin.WIN64\include\GLFW;C:\dev\DevIL Windows SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -140,7 +140,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>C:\dev\glew-2.0.0\include;C:\dev\glm-0.9.8.3\glm;C:\dev\glfw-3.2.1.bin.WIN64\include\GLFW;C:\dev\DevIL Windows SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\dev\bullet3-2.86.1\src;C:\dev\glew-2.0.0\include;C:\dev\glm-0.9.8.3\glm;C:\dev\glfw-3.2.1.bin.WIN64\include\GLFW;C:\dev\DevIL Windows SDK\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -213,6 +213,17 @@
   <ItemGroup>
     <None Include="minFrag.shader" />
     <None Include="minVertex.shader" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bullet\src\BulletCollision\BulletCollision.vcxproj">
+      <Project>{491a09ea-ac72-3731-8e77-34542c2b5ff3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Bullet\src\BulletDynamics\BulletDynamics.vcxproj">
+      <Project>{2901eb51-58d7-3add-af08-ee871de20970}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Bullet\src\LinearMath\LinearMath.vcxproj">
+      <Project>{4493edf2-b4a7-3885-b6b1-c1128a2ad078}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

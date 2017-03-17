@@ -1,5 +1,4 @@
 #include <iostream>
-
 #include "Shader.h"
 #include "Window.h"
 #include "glfwWindow.h"
@@ -13,6 +12,7 @@
 #include "Terrain.h"
 #include "Mesh.h"
 #include "Polygon.h"
+#include "btBulletDynamicsCommon.h"
 
 using namespace std;
 
@@ -178,17 +178,6 @@ int main(int argc, char *argv[]) {
 			// End of Process Inputs
 
 			// Update Function
-			
-			//transform.translate(vec3(0, 1 * dt, 0));
-			//transform.rotate(45.0f*dt, vec3(0, 1, 1), false);
-			//mat4 model = transform.calculateModelMatrix();
-
-			//// End of Update
-			//transform.translate(vec3(0,1*dt,0));
-			//transform.rotate(45.0f*dt, vec3(0, 1, 1), false);
-			//vec3 position = transform.getPosition();
-			//printf("%f,%f,%f\n", position.x, position.y, position.z);
-			//transform.calculateModelMatrix();
 			
 			graphicsHandler.start();  // Sets up Rendering Loop
 			
