@@ -79,8 +79,8 @@ int main(int argc, char *argv[]) {
 	glfwWindow *window = new glfwWindow(800, 600);
 	openGLHandler graphicsHandler(window);
 	//Physics World
-	PhysicsHandler _world;
-	_world.setGravity(vec3(0, -10, 0));
+	PhysicsHandler * _world = new PhysicsHandler();
+	_world->setGravity(vec3(0, -10, 0));
 
 	graphicsHandler.init(); // Initialize Rendering Library
 
@@ -161,15 +161,15 @@ int main(int argc, char *argv[]) {
 	groundRigidBody->addMotionState(new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0))));
 	groundRigidBody->init();
 
-	_world.addRigidBody(groundRigidBody);
-	RigidBody fallBody;
-	fallBody.setMass(1);
-	fallBody.addCollider(new btSphereShape(1));
-	fallBody.addMotionState(new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 50, -10))));
-	fallBody.calculateLocalInertia();
-	fallBody.init();
+	_world->addRigidBody(groundRigidBody);
+	RigidBody *fallBody = new RigidBody();;
+	fallBody->setMass(1);
+	fallBody->addCollider(new btSphereShape(1));
+	fallBody->addMotionState(new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 50, -10))));
+	fallBody->calculateLocalInertia();
+	fallBody->init();
 
-	_world.addRigidBody(&fallBody);
+	_world->addRigidBody(fallBody);
 	/* End of Physics Stuff Temp */
 
 	// Game Loop
@@ -190,9 +190,8 @@ int main(int argc, char *argv[]) {
 		if (frameClock.alarm()) {
 
 			// Process Inputs & Camera controls
-
-			_world.stepSimulation(dt, 10);
-			vec3 trans = fallBody.getMotionState();
+			_world->stepSimulation(dt, 10);
+			vec3 trans = fallBody->getMotionState();
 
 			transform.setPosition(trans);
 
@@ -217,15 +216,16 @@ int main(int argc, char *argv[]) {
 
 			// End of Render
 
-		graphicsHandler.end(); // Swaps scene buffers
-		frameClock.resetClock(); // Once frame is done reset to 0
-		previousTime = currentTime;
+			graphicsHandler.end(); // Swaps scene buffers
+			frameClock.resetClock(); // Once frame is done reset to 0
+			previousTime = currentTime;
 		}
 	}
-
-	_world.destroy();
+	_world->removeRigidBody(groundRigidBody);
 	groundRigidBody->destroy();
-	fallBody.destroy();
+	_world->removeRigidBody(fallBody);
+	fallBody->destroy();
+	_world->destroy();
 	/* End of Physics THing*/
 	MeshGenerator::destroy();
 	graphicsHandler.destroy();

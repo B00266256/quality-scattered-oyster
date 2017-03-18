@@ -20,7 +20,8 @@ public:
 	~PhysicsHandler();
 	void setGravity(vec3 gravity);
 	void addRigidBody(RigidBody *body);
-	void stepSimulation(int deltaTime, int maxSubSteps);
+	void removeRigidBody(RigidBody *body);
+	void stepSimulation(float deltaTime, int maxSubSteps);
 	void destroy();
 };
 

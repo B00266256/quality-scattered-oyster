@@ -18,6 +18,7 @@ public:
 	void addMotionState(btMotionState *state);
 	void setMass(float mass);
 	void calculateLocalInertia();
+	void addForce();
 	vec3 getMotionState();
 	void destroy();
 

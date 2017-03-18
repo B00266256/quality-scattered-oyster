@@ -16,7 +16,9 @@ RigidBody::~RigidBody()
 void RigidBody::init()
 {
 	btRigidBody::btRigidBodyConstructionInfo
-		constructionInfo(0, RigidBody::state, RigidBody::collider, RigidBody::inertia);
+		constructionInfo(RigidBody::mass, RigidBody::state, RigidBody::collider, RigidBody::inertia);
+
+	RigidBody::rigidbody = new btRigidBody(constructionInfo);
 }
 
 void RigidBody::addCollider(btCollisionShape * collider){
@@ -35,13 +37,19 @@ void RigidBody::setMass(float mass)
 
 void RigidBody::calculateLocalInertia()
 {
-	collider->calculateLocalInertia(RigidBody::mass, RigidBody::inertia);
+	collider->calculateLocalInertia(btScalar(RigidBody::mass), RigidBody::inertia);
+	printf("Inertia X Loc: %f, Y Loc: %f, Z Loc: %f\n", inertia.getX(), inertia.getY(), inertia.getZ());
+}
+
+void RigidBody::addForce()
+{
 }
 
 vec3 RigidBody::getMotionState()
 {
 	btTransform btTrans;
 	rigidbody->getMotionState()->getWorldTransform(btTrans);
+	printf(" Y Loc: %f\n", btTrans.getOrigin().getY());
 	return vec3(btTrans.getOrigin().getX(), btTrans.getOrigin().getY(), btTrans.getOrigin().getZ());
 }
 

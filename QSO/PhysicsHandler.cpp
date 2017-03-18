@@ -28,9 +28,15 @@ void PhysicsHandler::addRigidBody(RigidBody * body)
 	_dynamicsWorld->addRigidBody(body->rigidbody);
 }
 
-void PhysicsHandler::stepSimulation(int deltaTime, int maxSubSteps)
+void PhysicsHandler::removeRigidBody(RigidBody * body)
 {
-	_dynamicsWorld->stepSimulation(deltaTime, maxSubSteps);
+	_dynamicsWorld->removeRigidBody(body->rigidbody);
+}
+
+void PhysicsHandler::stepSimulation(float deltaTime, int maxSubSteps)
+{
+	//printf("Stepping Sim %f \n", deltaTime);
+	_dynamicsWorld->stepSimulation(btScalar(deltaTime), maxSubSteps);
 }
 
 void PhysicsHandler::destroy()
