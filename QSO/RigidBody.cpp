@@ -2,6 +2,11 @@
 
 
 
+btVector3 RigidBody::convertTobtVector3(vec3 vec)
+{
+	return btVector3(btScalar(vec.x), btScalar(vec.y), (btScalar(vec.z)));
+}
+
 RigidBody::RigidBody()
 {
 	RigidBody::mass = 0;
@@ -41,8 +46,14 @@ void RigidBody::calculateLocalInertia()
 	printf("Inertia X Loc: %f, Y Loc: %f, Z Loc: %f\n", inertia.getX(), inertia.getY(), inertia.getZ());
 }
 
-void RigidBody::addForce()
+void RigidBody::applyCentralForce(vec3 force)
 {
+	RigidBody::rigidbody->applyCentralForce(convertTobtVector3(force));
+}
+
+void RigidBody::applyCentralImpulse(vec3 force)
+{
+	RigidBody::rigidbody->applyCentralImpulse(convertTobtVector3(force));
 }
 
 vec3 RigidBody::getMotionState()

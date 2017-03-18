@@ -165,7 +165,7 @@ int main(int argc, char *argv[]) {
 	RigidBody *fallBody = new RigidBody();;
 	fallBody->setMass(1);
 	fallBody->addCollider(new btSphereShape(1));
-	fallBody->addMotionState(new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 50, -10))));
+	fallBody->addMotionState(new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 2, -10))));
 	fallBody->calculateLocalInertia();
 	fallBody->init();
 
@@ -182,18 +182,19 @@ int main(int argc, char *argv[]) {
 		clock.updateClock(); //Ticks App Clock
 
 		// Calculates Delta Time
-		
+		previousTime = currentTime;
 		currentTime = clock.getMilliseconds();
 		double dt = (currentTime - previousTime) * 0.001f; //Convert DT to seconds
-
+		_world->stepSimulation(dt, 10);
 		//End of DeltaTime
 		if (frameClock.alarm()) {
 
 			// Process Inputs & Camera controls
-			_world->stepSimulation(dt, 10);
 			vec3 trans = fallBody->getMotionState();
 
 			transform.setPosition(trans);
+
+			fallBody->applyForce(vec3(0,500,0));
 
 			playerCamera.processMouseScroll(*inputHandler.getMouse(), dt);
 			playerCamera.processCameraMouseMovement(*inputHandler.getMouse(), dt);
@@ -218,7 +219,6 @@ int main(int argc, char *argv[]) {
 
 			graphicsHandler.end(); // Swaps scene buffers
 			frameClock.resetClock(); // Once frame is done reset to 0
-			previousTime = currentTime;
 		}
 	}
 	_world->removeRigidBody(groundRigidBody);

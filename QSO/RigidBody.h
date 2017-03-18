@@ -10,6 +10,9 @@ private:
 	btScalar mass;
 	btVector3 inertia;
 	btTransform transform;
+
+	//Helper Functions
+	btVector3 convertTobtVector3(vec3 vec);
 public:
 	RigidBody();
 	~RigidBody();
@@ -18,7 +21,8 @@ public:
 	void addMotionState(btMotionState *state);
 	void setMass(float mass);
 	void calculateLocalInertia();
-	void addForce();
+	void applyCentralForce(vec3 force);
+	void applyCentralImpulse(vec3 force);
 	vec3 getMotionState();
 	void destroy();
 
