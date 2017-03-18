@@ -6,6 +6,7 @@ class Component :
 	public Object
 {
 public:
+	Component();
 	Component(std::string name);
 	virtual ~Component();
 	GameObject *gameObject;

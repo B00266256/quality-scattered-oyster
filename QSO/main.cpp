@@ -12,8 +12,7 @@
 #include "Terrain.h"
 #include "Mesh.h"
 #include "Polygon.h"
-#include "btBulletDynamicsCommon.h"
-
+#include "PhysicsHandler.h"
 using namespace std;
 
 glfwInputHandler inputHandler;
@@ -79,6 +78,9 @@ int main(int argc, char *argv[]) {
 
 	glfwWindow *window = new glfwWindow(800, 600);
 	openGLHandler graphicsHandler(window);
+	//Physics World
+	PhysicsHandler _world;
+	_world.setGravity(vec3(0, -10, 0));
 
 	graphicsHandler.init(); // Initialize Rendering Library
 
@@ -109,11 +111,12 @@ int main(int argc, char *argv[]) {
 	// Testing Cube Renderer
 
 	Transform transform;
+	Transform terrainTransform;
 	Material material;
 	material.texture = "lava";
 	
 	//Mesh Objects
-	MeshRenderer MeshRenderer1(material, &textureManager, &transform, &minShaderProgram, &playerCamera);
+	MeshRenderer MeshRenderer1(material, &textureManager, &terrainTransform, &minShaderProgram, &playerCamera);
 	MeshRenderer MeshRenderer2(material, &textureManager, &transform, &minShaderProgram, &playerCamera);
 	
 	Polygon cube;
@@ -148,6 +151,27 @@ int main(int argc, char *argv[]) {
 
 	KeyboardInput* keyboard = inputHandler.getKeyboard();
 
+	terrainTransform.translate(0, 1, 0);
+	terrainTransform.calculateModelMatrix();
+	/* Physics Stuff  Temp */
+
+
+	RigidBody *groundRigidBody = new RigidBody();
+	groundRigidBody->addCollider(new btStaticPlaneShape(btVector3(0, 1, 0), 1));
+	groundRigidBody->addMotionState(new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, -1, 0))));
+	groundRigidBody->init();
+
+	_world.addRigidBody(groundRigidBody);
+	RigidBody fallBody;
+	fallBody.setMass(1);
+	fallBody.addCollider(new btSphereShape(1));
+	fallBody.addMotionState(new btDefaultMotionState(btTransform(btQuaternion(0, 0, 0, 1), btVector3(0, 50, -10))));
+	fallBody.calculateLocalInertia();
+	fallBody.init();
+
+	_world.addRigidBody(&fallBody);
+	/* End of Physics Stuff Temp */
+
 	// Game Loop
 	while (!inputHandler.quitApplication()) {
 
@@ -166,6 +190,11 @@ int main(int argc, char *argv[]) {
 		if (frameClock.alarm()) {
 
 			// Process Inputs & Camera controls
+
+			_world.stepSimulation(dt, 10);
+			vec3 trans = fallBody.getMotionState();
+
+			transform.setPosition(trans);
 
 			playerCamera.processMouseScroll(*inputHandler.getMouse(), dt);
 			playerCamera.processCameraMouseMovement(*inputHandler.getMouse(), dt);
@@ -193,6 +222,11 @@ int main(int argc, char *argv[]) {
 		previousTime = currentTime;
 		}
 	}
+
+	_world.destroy();
+	groundRigidBody->destroy();
+	fallBody.destroy();
+	/* End of Physics THing*/
 	MeshGenerator::destroy();
 	graphicsHandler.destroy();
 
