@@ -33,13 +33,13 @@ void Polygon::init()
 	Mesh* mesh5 = new Mesh("frontFace");
 	buildFace(mesh5, vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), false);
 
-	Shape::numberOfMeshs = 6;
-	Shape::meshes.push_back(mesh0);
-	Shape::meshes.push_back(mesh1);
-	Shape::meshes.push_back(mesh2);
-	Shape::meshes.push_back(mesh3);
-	Shape::meshes.push_back(mesh4);
-	Shape::meshes.push_back(mesh5);
+	Shapes::numberOfMeshs = 6;
+	Shapes::meshes.push_back(mesh0);
+	Shapes::meshes.push_back(mesh1);
+	Shapes::meshes.push_back(mesh2);
+	Shapes::meshes.push_back(mesh3);
+	Shapes::meshes.push_back(mesh4);
+	Shapes::meshes.push_back(mesh5);
 }
 
 void Polygon::buildFace(Mesh * mesh, vec3 corner, vec3 up, vec3 right, bool reverse)

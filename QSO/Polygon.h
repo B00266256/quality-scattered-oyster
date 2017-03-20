@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Mesh.h"
-#include "Shape.h"
+#include "Shapes.h"
 
-class Polygon : public Shape
+class Polygon : public Shapes
 {
 public:
 	Polygon();
