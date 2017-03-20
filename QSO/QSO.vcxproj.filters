@@ -210,6 +210,12 @@
     <ClInclude Include="Shape.h">
       <Filter>Header Files\OpenGL\Polygons</Filter>
     </ClInclude>
+    <ClInclude Include="GLMesh.h">
+      <Filter>Header Files\OpenGL\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="GLBasicMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Behaviours.cpp">
@@ -300,6 +306,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Shape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLBasicMesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

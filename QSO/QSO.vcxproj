@@ -153,6 +153,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="GLBasicMesh.h" />
     <ClInclude Include="Behaviours.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Clock.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="glfwInputHandler.h" />
     <ClInclude Include="glfwWindow.h" />
+    <ClInclude Include="GLMesh.h" />
     <ClInclude Include="GraphicsHandler.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="KeyboardInput.h" />
@@ -184,6 +186,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="GLBasicMesh.cpp" />
     <ClCompile Include="Behaviours.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Clock.cpp" />
@@ -193,6 +196,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="glfwInputHandler.cpp" />
     <ClCompile Include="glfwWindow.cpp" />
+    <ClCompile Include="GLMesh.cpp" />
     <ClCompile Include="GraphicsHandler.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="KeyboardInput.cpp" />

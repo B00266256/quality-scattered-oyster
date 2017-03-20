@@ -1,48 +1,24 @@
 #pragma once
 
-#include <GL\glew.h>
-
+#include <glm\glm.hpp>
 #include "Component.h"
+#include "MeshGenerator.h"
 
 
-class MeshGenerator;
-
-struct glData {
-	GLuint VAO;
-	GLuint VBO;
-	GLuint EBO;
-
-};
-
-struct MeshData {
-
-	GLfloat *vertices;
-	GLfloat *normals;
-	GLfloat *color;
-	GLfloat *uv;
-	GLuint *indices;
-
-	GLuint vertexCount;
-	GLuint indexCount;
-	GLenum mode;
-};
-
-class Mesh :
-	public Component
+class Mesh : public Component
 {
+protected:
+	glm::mat4 modelMatrix;
 public:
 	Mesh();
 	Mesh(std::string name);
 	virtual ~Mesh();
-	MeshData mesh;
 
-	glData glObjects;
+	virtual void setUpMesh() = 0;
+	virtual void drawMesh() = 0;
+	virtual void destroy();
 
-	void setData(GLuint vertexCount, GLuint indexCount, GLfloat * vertices, GLuint indices, GLfloat * normals, GLfloat * uv, GLfloat * color);
-	void setData(GLuint vertexCount, GLuint indexCount, GLfloat *vertices, GLuint indices, GLfloat *normals, GLfloat *uv);
-	void setData(GLuint vertexCount, GLuint indexCount, GLfloat *vertices, GLuint indices);
-	//void init();
-
-	void generateMesh();
+	void updateModelMatrix(glm::mat4 modelMatrix);
+	glm::mat4 getModelMatrix();
 };
 

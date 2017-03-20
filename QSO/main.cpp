@@ -339,6 +339,7 @@ int main(int argc, char *argv[]) {
 			graphicsHandler.start();  // Sets up Rendering Loop
 			
 			// Render Function
+			MeshRenderer1.renderObject(&cube1);
 			MeshRenderer2.renderObject(&cube2);
 			MeshRenderer3.renderObject(&lamp);
 			MeshRenderer4.renderObject(&cube3);
@@ -350,9 +351,8 @@ int main(int argc, char *argv[]) {
 			sunRenderer.renderObject(&sun);
 			attenuatedLightRenderer.renderObject(&attenuatedLight);
 			terrainRenderer.renderObject(&terrainMesh);
-			MeshRenderer1.renderObject(&cube1); 
+			
 
-			//MeshRenderer2.renderObject(&cube);
 
 			// End of Render
 

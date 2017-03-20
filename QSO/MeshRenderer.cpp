@@ -177,7 +177,7 @@ void MeshRenderer::renderObject(Shape *shape)
 	GLint satBoostLoc = glGetUniformLocation(MeshRenderer::program->program, "satBoost");
 	
 
-	//glUniform3f(objectColorLoc, color.x, color.y, color.z);
+	glUniform3f(objectColorLoc, 1.0f, 0.5f, 0.0f);
 	glUniform3f(lightColorLoc, 1.0f, 1.0f, 1.0f); // Also set light's color (white)
 	glUniform3f(lightPosLoc, lampPos.getPosition().x, lampPos.getPosition().y, lampPos.getPosition().z);
 	glUniform3f(viewPosLoc, camera->Position.x, camera->Position.y, camera->Position.z);
@@ -198,8 +198,8 @@ void MeshRenderer::renderObject(Shape *shape)
 	glUniform1f(lightQuadraticPos, 0.032f);
 	// Set HSV properties
 	glUniform3f(ourImageLoc, 1.0f, 1.0f, 0.0f);
-	glUniform1f(hueShiftLoc, 0.0f);
-	glUniform1f(satBoostLoc, hueshift);
+	glUniform1f(hueShiftLoc, hueshift);
+	glUniform1f(satBoostLoc, 1.0f);
 
 	hueshift += 0.0005f;
 
@@ -225,7 +225,7 @@ void MeshRenderer::renderObject(Shape *shape)
 	glUniform1f(alphaLoc, 1.0f);
 	glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 
-	//glBindTexture call will bind that texture to the currently active texture unit.
+	// glBindTexture call will bind that texture to the currently active texture unit.
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureManager->getTexture(MeshRenderer::material.uv));
 	glUniform1i(glGetUniformLocation(program->program, "ourUV"), 0);

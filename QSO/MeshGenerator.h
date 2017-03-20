@@ -14,14 +14,27 @@
 
 using namespace std;
 
+struct MeshData {
+
+	GLfloat *vertices;
+	GLfloat *normals;
+	GLfloat *color;
+	GLfloat *uv;
+	GLuint *indices;
+
+	GLuint vertexCount;
+	GLuint indexCount;
+	GLenum mode;
+};
+
 class MeshGenerator
 {
 public:
-	//static GLuint createMesh(const GLfloat *data, size_t sizeOfData, const GLuint *indices, size_t sizeOfIndices);
+	static GLuint createMesh(MeshData data);
 	static void updateMesh(const GLuint mesh, const unsigned int bufferType, const GLfloat *data, const GLuint size);
 	static void destroy();
 	static map<GLuint, GLuint*> VAOMap;
 
-	static GLuint createMesh(MeshData data);
+	
 };
 

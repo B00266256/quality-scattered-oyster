@@ -3,6 +3,7 @@
 map<GLuint, GLuint*>MeshGenerator::VAOMap;
 
 void MeshGenerator::updateMesh(const GLuint mesh, const unsigned int bufferType, const GLfloat *data, const GLuint size) {
+
 	GLuint *meshBuffers = VAOMap[mesh];
 	glBindVertexArray(mesh);
 
