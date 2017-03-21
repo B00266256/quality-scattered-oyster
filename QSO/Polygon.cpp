@@ -114,6 +114,13 @@ Mesh *Polygon::buildFace(string name, Mesh * mesh, vec3 corner, vec3 up, vec3 ri
 
 		indices = index;
 	}
-	
-	return new GLAdvancedMesh(vertex, 6, uv, indices, 6, normal, textureManager->getTexture(Shapes::textureName));
+
+	// Assign values and maps to polygon to build
+
+	GLAdvancedMesh *glMesh = new GLAdvancedMesh(vertex, 4, uv, indices, 6, normal, textureManager->getTexture(Shapes::textureName));
+	GLuint diffuseID = textureManager->getTexture(textureMaps.diffuse);
+	GLuint specularID = textureManager->getTexture(textureMaps.specular);
+	GLuint emissionID = textureManager->getTexture(textureMaps.emission);
+	glMesh->setMaps(diffuseID, specularID, emissionID);
+	return glMesh;
 }

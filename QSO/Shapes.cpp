@@ -21,3 +21,10 @@ vector<Mesh*> Shapes::getMesh(int & numMeshs)
 	numMeshs = Shapes::numberOfMeshs;
 	return Shapes::meshes;
 }
+
+void Shapes::setTextureMaps(string diffuse, string specular, string emission)
+{
+	textureMaps.diffuse = diffuse;
+	textureMaps.specular = specular;
+	textureMaps.emission = emission;
+}

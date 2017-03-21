@@ -4,6 +4,10 @@ GLAdvancedMesh::~GLAdvancedMesh()
 {
 }
 
+GLAdvancedMesh::GLAdvancedMesh()
+{
+}
+
 GLAdvancedMesh::GLAdvancedMesh(GLfloat * vertices, GLuint vertexCount, GLfloat * uv, GLuint * indices, GLuint indexCount, GLfloat * normals, GLuint textureID)
 {
 	GLMesh::vertices = vertices;
@@ -37,4 +41,27 @@ void GLAdvancedMesh::drawMesh()
 	glBindVertexArray(GLMesh::VAO);
 	glDrawElements(GLMesh::mode, GLMesh::indexCount, GL_UNSIGNED_BYTE, 0);
 	glBindVertexArray(0);
+}
+
+void GLAdvancedMesh::setEmission(GLuint mapID)
+{
+	material.emission = mapID;
+}
+
+void GLAdvancedMesh::setDiffusion(GLuint mapID)
+{
+	material.diffuse = mapID;
+}
+
+void GLAdvancedMesh::setSpecular(GLuint mapID)
+{
+	material.specular = mapID;
+}
+
+void GLAdvancedMesh::setMaps(GLuint emissionID, GLuint diffusionID, GLuint specularID)
+{
+	material.emission = emissionID;
+	material.diffuse = diffusionID;
+	material.specular = specularID;
+
 }

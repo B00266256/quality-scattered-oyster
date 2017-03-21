@@ -9,6 +9,12 @@
 
 using namespace std;
 
+struct TextureMaps {
+	string diffuse;
+	string specular;
+	string emission;
+};
+
 class Shapes : public Component
 {
 protected:
@@ -17,11 +23,13 @@ protected:
 	int numberOfMeshs;
 	string textureName;
 	TextureManager *textureManager;
+	TextureMaps textureMaps;
 public:
 	Shapes(TextureManager *textureManager, string name);
 	virtual ~Shapes();
 	virtual Shapes* instantiate() = 0;
 	vector<Mesh*> getMesh(int &numMeshs);
+	void setTextureMaps(string diffuse, string specular = "", string emission = "");
 	
 };
 

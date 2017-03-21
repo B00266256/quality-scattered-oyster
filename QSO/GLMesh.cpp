@@ -19,6 +19,11 @@ GLuint GLMesh::getTextureID()
 	return GLMesh::textureID;
 }
 
+Materials GLMesh::getMaterial()
+{
+	return material;
+}
+
 
 GLMesh::~GLMesh()
 {

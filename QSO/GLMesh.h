@@ -4,10 +4,12 @@
 #include "Mesh.h"
 
 struct Materials {
-	GLfloat ambient[4];
-	GLfloat diffuse[4];
-	GLfloat specular[4];
-	GLfloat shininess;
+	GLuint ambient;
+	GLuint diffuse;
+	GLuint specular;
+	GLfloat *color;
+	GLuint emission;
+	GLuint shininess;
 };
 
 class GLMesh : public Mesh
@@ -25,6 +27,7 @@ protected:
 	GLenum mode;
 
 	Materials material;
+
 public:
 	GLMesh(); 
 	virtual void setupMesh() = 0;
@@ -32,5 +35,6 @@ public:
 	virtual void destroy();
 
 	GLuint getTextureID();
+	Materials getMaterial();
 };
 

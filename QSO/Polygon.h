@@ -11,6 +11,5 @@ public:
 	Polygon(std::string PolygonName, std::string textureName, TextureManager *textureManager);
 	Mesh* buildFace(string name, Mesh * mesh, vec3 corner, vec3 up, vec3 right, bool reverse);
 	Shapes* instantiate();
-	void buildPolygon();
 };
 

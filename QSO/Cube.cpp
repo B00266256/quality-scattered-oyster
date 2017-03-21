@@ -167,5 +167,12 @@ void Cube::buildCube()
 		indices[i] = i;
 	}
 
-	Shapes::meshes.push_back(new GLAdvancedMesh(vertex, 36, uv, indices, 36, normal, textureManager->getTexture(Shapes::textureName)));
+	// Assign values and maps to cube to build
+
+	GLAdvancedMesh *mesh = new GLAdvancedMesh(vertex, 36, uv, indices, 36, normal, textureManager->getTexture(Shapes::textureName));
+	GLuint diffuseID = textureManager->getTexture(textureMaps.diffuse);
+	GLuint specularID = textureManager->getTexture(textureMaps.specular);
+	GLuint emissionID = textureManager->getTexture(textureMaps.emission);
+	mesh->setMaps(diffuseID, specularID, emissionID);
+	Shapes::meshes.push_back(mesh);
 }
