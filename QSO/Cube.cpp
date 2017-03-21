@@ -2,13 +2,27 @@
 
 
 
-Cube::Cube()
+void Cube::createMesh()
 {
+	buildCube();
+}
+
+Cube::Cube(std::string cubeName, std::string textureName, TextureManager *textureManager) : Shapes(textureManager, cubeName)
+{
+	Shapes::textureName = textureName;
+	createMesh();
 }
 
 
 Cube::~Cube()
 {
+}
+
+Shapes * Cube::instantiate()
+{
+	string instance = to_string(instance_id + 1);
+	Shapes *shape = new Cube(string(name + instance), Shapes::textureName, Shapes::textureManager);
+	return shape;
 }
 
 void Cube::buildCube()
@@ -153,23 +167,5 @@ void Cube::buildCube()
 		indices[i] = i;
 	}
 
-
-	Mesh *mesh = new Mesh("cube");
-
-	mesh->mesh.normals = normal;
-	mesh->mesh.vertices = vertex;
-	mesh->mesh.indices = indices;
-	mesh->mesh.uv = uv;
-	mesh->mesh.indexCount = 36;
-	mesh->mesh.vertexCount = 36;
-	mesh->generateMesh();
-
-	Shape::meshes.push_back(mesh);
-
-}
-
-void Cube::init()
-{
-	Shape::numberOfMeshs = 1;
-	buildCube();
+	Shapes::meshes.push_back(new GLAdvancedMesh(vertex, 36, uv, indices, 36, normal, textureManager->getTexture(Shapes::textureName)));
 }

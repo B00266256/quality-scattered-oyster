@@ -1,15 +1,16 @@
 #pragma once
 
-#include "Mesh.h"
-#include "Shape.h"
+#include "Shapes.h"
+#include "GLAdvancedMesh.h"
 
-class Cube : public Shape
+class Cube : public Shapes
 {
+private:
+	void createMesh();
 public:
-	Cube();
-	virtual ~Cube();
+	Cube(std::string cubeName, std::string textureName, TextureManager *textureManager);
 
-	void init();
+	Shapes* instantiate();
 	void buildCube();
 };
 

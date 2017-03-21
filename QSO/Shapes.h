@@ -21,7 +21,6 @@ public:
 	Shapes(TextureManager *textureManager, string name);
 	virtual ~Shapes();
 	virtual Shapes* instantiate() = 0;
-	virtual void init() = 0;
 	vector<Mesh*> getMesh(int &numMeshs);
 	
 };

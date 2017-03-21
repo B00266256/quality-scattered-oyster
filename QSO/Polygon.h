@@ -1,18 +1,16 @@
 #pragma once
 
-#include "Mesh.h"
 #include "Shapes.h"
+#include "GLAdvancedMesh.h"
 
 class Polygon : public Shapes
 {
+private:
+	void createMesh();
 public:
-	Polygon();
-	virtual ~Polygon();
-
-	
-	void init();
-
-	void buildFace(Mesh *mesh, vec3 corner, vec3 up, vec3 right, bool reverse);
-
+	Polygon(std::string PolygonName, std::string textureName, TextureManager *textureManager);
+	Mesh* buildFace(string name, Mesh * mesh, vec3 corner, vec3 up, vec3 right, bool reverse);
+	Shapes* instantiate();
+	void buildPolygon();
 };
 

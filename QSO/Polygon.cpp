@@ -2,37 +2,20 @@
 
 
 
-Polygon::Polygon()
+void Polygon::createMesh()
 {
-}
+	Mesh* mesh0 = buildFace("leftFace", mesh0, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), false);
 
+	Mesh* mesh1 = buildFace("rightFace", mesh1, vec3(1.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), true);
 
-Polygon::~Polygon()
-{
-}
+	Mesh* mesh2 = buildFace("bottomFace", mesh2, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), false);
 
-void Polygon::init()
-{
-	GLfloat polygonLength = 1.0f;
+	Mesh* mesh3 = buildFace("topFace", mesh3, vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), true);
 
-	Mesh* mesh0 = new Mesh("leftFace");
-	buildFace(mesh0, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), false);
-		
-	Mesh* mesh1 = new Mesh("rightFace");
-	buildFace(mesh1, vec3(1.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), true);
+	Mesh* mesh4 = buildFace("bottomFace", mesh4, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), true);
 
-	Mesh* mesh2 = new Mesh("bottomFace");
-	buildFace(mesh2, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), false);
-
-	Mesh* mesh3 = new Mesh("topFace");
-	buildFace(mesh3, vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), true);
-
-	Mesh* mesh4 = new Mesh("bottomFace");
-	buildFace(mesh4, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), true);
-
-	Mesh* mesh5 = new Mesh("frontFace");
-	buildFace(mesh5, vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), false);
-
+	Mesh* mesh5 = buildFace("frontFace", mesh5, vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), false);
+	
 	Shapes::numberOfMeshs = 6;
 	Shapes::meshes.push_back(mesh0);
 	Shapes::meshes.push_back(mesh1);
@@ -42,7 +25,24 @@ void Polygon::init()
 	Shapes::meshes.push_back(mesh5);
 }
 
-void Polygon::buildFace(Mesh * mesh, vec3 corner, vec3 up, vec3 right, bool reverse)
+Polygon::Polygon(std::string polygonName, std::string textureName, TextureManager *textureManager) : Shapes(textureManager, polygonName)
+{
+	Shapes::textureName = textureName;
+	createMesh();
+}
+
+Shapes * Polygon::instantiate()
+{
+	string instance = to_string(instance_id + 1);
+	Shapes *shape = new Polygon(string(name + instance), Shapes::textureName, Shapes::textureManager);
+	return shape;
+}
+
+Polygon::~Polygon()
+{
+}
+
+Mesh *Polygon::buildFace(string name, Mesh * mesh, vec3 corner, vec3 up, vec3 right, bool reverse)
 {
 	GLfloat vertex[12];
 	vertex[0] = corner.x;
@@ -97,13 +97,14 @@ void Polygon::buildFace(Mesh * mesh, vec3 corner, vec3 up, vec3 right, bool reve
 		1.0f, 0.0f,
 	};
 
+	GLuint *indices;
 	if (reverse) {
 		GLuint index[6] = {
 			0, 1, 2,
 			2, 3, 0
 		};
 
-		mesh->mesh.indices = index;
+		indices = index;
 	}
 	else {
 		GLuint index[6] = {
@@ -111,15 +112,8 @@ void Polygon::buildFace(Mesh * mesh, vec3 corner, vec3 up, vec3 right, bool reve
 			3, 2, 0
 		};
 
-		mesh->mesh.indices = index;
+		indices = index;
 	}
-
-	mesh->mesh.normals = normal;
-	mesh->mesh.vertices = vertex;
-	mesh->mesh.uv = uv;
-	mesh->mesh.indexCount = 6;
-	mesh->mesh.vertexCount = 6;
-	mesh->generateMesh();
-	//printf("VAO2 %i \n", mesh->glObjects.VAO);
 	
+	return new GLAdvancedMesh(vertex, 6, uv, indices, 6, normal, textureManager->getTexture(Shapes::textureName));
 }
