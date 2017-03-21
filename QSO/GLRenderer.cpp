@@ -19,7 +19,6 @@ void GLRenderer::renderObject(Shapes *shape)
 
 	int numberOfMeshs;
 	vector<Mesh*> meshes = shape->getMesh(numberOfMeshs);
-	//textureID = dynamic_cast<GLMesh*>(mesh)->getTextureID();
 
 	Transform lampPos;
 	Transform sunPos;
@@ -81,7 +80,6 @@ void GLRenderer::renderObject(Shapes *shape)
 	// Create camera transformations
 	mat4 view = camera->getView();
 	mat4 projection = camera->getProjection();
-	mat3 normalMatrix = transpose(inverse(mat3(model)));
 
 	// Get matrix's uniform location, get and set matrix
 	GLuint modelLoc = glGetUniformLocation(GLRenderer::program->program, "model");
@@ -94,23 +92,25 @@ void GLRenderer::renderObject(Shapes *shape)
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 	glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 	glUniform1f(alphaLoc, 1.0f);
-	glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
-
+	
+	// glBindTexture call will bind that texture to the currently active texture unit.
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, glMesh->getTextureID());
+	glUniform1i(glGetUniformLocation(program->program, "ourUV"), 0);
+	//By setting them via glUniform1i we make sure each uniform sampler corresponds to the proper texture unit.
+	
 	for (int i = 0; i < numberOfMeshs; i++) {
-
 		GLMesh *glMesh = dynamic_cast<GLMesh*>(meshes[i]);
 
 		// Get Model Matrix
 		model = glMesh->getModelMatrix();
+		mat3 normalMatrix = transpose(inverse(mat3(model)));
+		glUniformMatrix3fv(normalMatrixLoc, 1, GL_FALSE, glm::value_ptr(normalMatrix));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 		Materials material = glMesh->getMaterial();
 
-		// glBindTexture call will bind that texture to the currently active texture unit.
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, glMesh->getTextureID);
-		glUniform1i(glGetUniformLocation(program->program, "ourUV"), 0);
-		//By setting them via glUniform1i we make sure each uniform sampler corresponds to the proper texture unit.
+
 
 		if (material.diffuse != 0) {
 			//Bind Diffuse map

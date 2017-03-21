@@ -30,6 +30,7 @@ protected:
 
 public:
 	GLMesh(); 
+	virtual ~GLMesh();
 	virtual void setupMesh() = 0;
 	virtual void drawMesh() = 0;
 	virtual void destroy();

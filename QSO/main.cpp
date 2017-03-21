@@ -9,6 +9,11 @@
 #include "Camera.h"
 #include "glfwInputHandler.h"
 #include "GameObject.h"
+#include "Cube.h"
+#include "Polygon.h"
+#include "Shapes.h"
+#include "Terrain.h"
+#include "GLRenderer.h"
 
 
 using namespace std;
@@ -116,7 +121,15 @@ int main(int argc, char *argv[]) {
 	Shader attenuatedLightingShaderProgram("attenuatedLightingVert.shader", "attenuatedLightingFrag.shader");
 	Shader HSVShaderProgram("HSVVert.shader", "HSVFrag.shader");
 
-	// Create Shapes
+
+	GLRenderer HSVRenderer(&minShaderProgram);
+	HSVRenderer.setCamera(&playerCamera);
+
+	// Create Game Object Shapes
+	GameObject cube("cubeObject");
+	Polygon *cubeShape = new Polygon("cubeShape", "container_1", &textureManager);
+	cubeShape->setTextureMaps("container_2", "container_specular", "lava_2");
+	cube.addComponent(cubeShape);
 
 
 	// Init Shapes
@@ -174,7 +187,8 @@ int main(int argc, char *argv[]) {
 			
 			// Render Functions
 			
-
+			//printf("cube: %i \n", cubeShape);
+			HSVRenderer.renderObject(cubeShape);
 
 			// End of Render
 
@@ -183,6 +197,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	// DALLOC
+	//cube.destroy();
 	graphicsHandler.destroy();
 
 	return 0;

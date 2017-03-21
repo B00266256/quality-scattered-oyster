@@ -11,10 +11,10 @@ GLBasicMesh::GLBasicMesh(GLfloat *vertices, GLuint vertexCount, GLfloat *uv, GLu
 	GLMesh::mode = GL_TRIANGLES;
 
 	GLMesh::textureID = textureID;
-	setupMesh();
+	GLBasicMesh::setupMesh();
 }
 
-void GLBasicMesh::setUpMesh()
+void GLBasicMesh::setupMesh()
 {
 	MeshData data = {
 		GLMesh::vertices,

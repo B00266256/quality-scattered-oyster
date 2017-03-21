@@ -13,6 +13,7 @@ GameObject::GameObject(std::string name)
 
 GameObject::~GameObject()
 {
+	GameObject::destroy();
 }
 void GameObject::broadcastMessage(GameBehaviour::BehaviorFuncs func)
 {
@@ -75,11 +76,9 @@ void GameObject::destroy()
 	}
 
 	//Clear Components
-	for (int i = 0; i < components.size(); i++) {
-		components[i]->destroy();
-	}
-
-	delete this;
+	//for (int i = 0; i < components.size(); i++) {
+	//	components[i]->destroy();
+	//}
 }
 
 GameObject *GameObject::find(std::string name)
@@ -102,25 +101,4 @@ GameObject *GameObject::find(std::string name)
 			found = true;
 	}
 	return obj;
-}
-
-template<class T>
-T *GameObject::getComponent()
-{
-	bool found = false;
-	T *component = nullptr;
-	int i = 0;
-
-	while (!found) {
-
-		//Checks if we have found Component
-		if (component = dynamic_cast<T>(components[i]))
-			found = true;
-
-		i++;
-		//Reached the end
-		if (i == components.size())
-			found = true;
-	}
-	return component;
 }

@@ -1,9 +1,5 @@
 #include "GLAdvancedMesh.h"
 
-GLAdvancedMesh::~GLAdvancedMesh()
-{
-}
-
 GLAdvancedMesh::GLAdvancedMesh()
 {
 }
@@ -19,7 +15,7 @@ GLAdvancedMesh::GLAdvancedMesh(GLfloat * vertices, GLuint vertexCount, GLfloat *
 	GLMesh::mode = mode;
 
 	GLMesh::textureID = textureID;
-	setupMesh();
+	GLAdvancedMesh::setupMesh();
 }
 
 void GLAdvancedMesh::setupMesh()

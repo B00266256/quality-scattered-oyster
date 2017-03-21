@@ -57,6 +57,7 @@ GLuint MeshGenerator::createMesh(MeshData data)
 	//specify the order at which we want to draw these vertices in. 
 	//Example: Use 4 vertices to draw a square using 2 triangles instead of 6. 
 
+	//printf("data %f %f %f \n", data.vertices[0], data.vertices[1], data.vertices[2]);
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &vertexBuffer);
 	glGenBuffers(1, &elementBuffer);

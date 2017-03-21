@@ -4,17 +4,17 @@
 
 void Polygon::createMesh()
 {
-	Mesh* mesh0 = buildFace("leftFace", mesh0, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), false);
+	Mesh* mesh0 = buildFace("leftFace", vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), false);
 
-	Mesh* mesh1 = buildFace("rightFace", mesh1, vec3(1.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), true);
+	Mesh* mesh1 = buildFace("rightFace", vec3(1.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), true);
 
-	Mesh* mesh2 = buildFace("bottomFace", mesh2, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), false);
+	Mesh* mesh2 = buildFace("bottomFace", vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), false);
 
-	Mesh* mesh3 = buildFace("topFace", mesh3, vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), true);
+	Mesh* mesh3 = buildFace("topFace", vec3(0.0f, 1.0f, 0.0f), vec3(0.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f), true);
 
-	Mesh* mesh4 = buildFace("bottomFace", mesh4, vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), true);
+	Mesh* mesh4 = buildFace("bottomFace", vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), true);
 
-	Mesh* mesh5 = buildFace("frontFace", mesh5, vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), false);
+	Mesh* mesh5 = buildFace("frontFace", vec3(0.0f, 0.0f, 1.0f), vec3(0.0f, 1.0f, 0.0f), vec3(1.0f, 0.0f, 0.0f), false);
 	
 	Shapes::numberOfMeshs = 6;
 	Shapes::meshes.push_back(mesh0);
@@ -38,11 +38,8 @@ Shapes * Polygon::instantiate()
 	return shape;
 }
 
-Polygon::~Polygon()
-{
-}
 
-Mesh *Polygon::buildFace(string name, Mesh * mesh, vec3 corner, vec3 up, vec3 right, bool reverse)
+Mesh *Polygon::buildFace(string name, vec3 corner, vec3 up, vec3 right, bool reverse)
 {
 	GLfloat vertex[12];
 	vertex[0] = corner.x;
@@ -76,7 +73,7 @@ Mesh *Polygon::buildFace(string name, Mesh * mesh, vec3 corner, vec3 up, vec3 ri
 	}
 	
 	// Need to check if top/bottom and get correct normals
-	if (mesh->toString() == "topFace" || mesh->toString() == "bottomFace") {
+	if (name == "topFace" || name == "bottomFace") {
 	//	v1Normal = -v1Normal;
 	}
 

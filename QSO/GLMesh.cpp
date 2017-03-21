@@ -27,4 +27,5 @@ Materials GLMesh::getMaterial()
 
 GLMesh::~GLMesh()
 {
+	destroy();
 }

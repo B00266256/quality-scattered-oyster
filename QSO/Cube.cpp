@@ -4,6 +4,7 @@
 
 void Cube::createMesh()
 {
+	Shapes::numberOfMeshs = 1;
 	buildCube();
 }
 
@@ -13,10 +14,6 @@ Cube::Cube(std::string cubeName, std::string textureName, TextureManager *textur
 	createMesh();
 }
 
-
-Cube::~Cube()
-{
-}
 
 Shapes * Cube::instantiate()
 {
