@@ -1,7 +1,7 @@
 #include "Terrain.h"
 
 
-Terrain::Terrain(std::string name, const int xLength, const int zLength, float gridSize):Component(name)
+Terrain::Terrain(TextureManager *textureManager, std::string name, const int xLength, const int zLength, float gridSize) : Shapes(textureManager, name)
 {
 	Terrain::map.xLength = xLength;
 	Terrain::map.zLength = zLength;
@@ -13,6 +13,8 @@ Terrain::Terrain(std::string name, const int xLength, const int zLength, float g
 	for (int i = 0; i < z; i++) {
 		Terrain::map.heightmap[i] = new float[x];
 	}
+
+	init();
 }
 
 
@@ -26,6 +28,18 @@ void Terrain::init()
 	Terrain::buildVertices();
 	Terrain::buildIndices();
 	Terrain::calculateNormals();
+
+	//GLfloat *vertices, GLuint vertexCount, GLfloat *uv, GLuint *indices, GLuint indexCount, GLuint textureID
+
+	mapData terrainData = getData();
+	GLAdvancedMesh *mesh = new GLAdvancedMesh((GLfloat*)terrainData.vertices, terrainData.vertexCount, nullptr, terrainData.indices, terrainData.indexCount, (GLfloat*)terrainData.normals, 0, GL_TRIANGLE_STRIP);
+	terrainMesh.generateMesh();
+
+}
+
+Shapes * Terrain::instantiate()
+{
+	return nullptr;
 }
 
 const mapData Terrain::getData()

@@ -26,6 +26,8 @@ void GLBasicMesh::setUpMesh()
 		GLMesh::indexCount,
 		GLMesh::mode
 	};
+
+	GLMesh::VAO = MeshGenerator::createMesh(data);
 }
 
 void GLBasicMesh::drawMesh()

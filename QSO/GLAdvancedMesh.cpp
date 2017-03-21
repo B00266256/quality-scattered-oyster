@@ -8,7 +8,7 @@ GLAdvancedMesh::GLAdvancedMesh()
 {
 }
 
-GLAdvancedMesh::GLAdvancedMesh(GLfloat * vertices, GLuint vertexCount, GLfloat * uv, GLuint * indices, GLuint indexCount, GLfloat * normals, GLuint textureID)
+GLAdvancedMesh::GLAdvancedMesh(GLfloat * vertices, GLuint vertexCount, GLfloat * uv, GLuint * indices, GLuint indexCount, GLfloat * normals, GLuint textureID, GLenum mode)
 {
 	GLMesh::vertices = vertices;
 	GLMesh::uv = uv;
@@ -16,7 +16,7 @@ GLAdvancedMesh::GLAdvancedMesh(GLfloat * vertices, GLuint vertexCount, GLfloat *
 	GLMesh::vertexCount = vertexCount;
 	GLMesh::indexCount = indexCount;
 	GLMesh::normals = normals;
-	GLMesh::mode = GL_TRIANGLES;
+	GLMesh::mode = mode;
 
 	GLMesh::textureID = textureID;
 	setupMesh();
@@ -34,6 +34,8 @@ void GLAdvancedMesh::setupMesh()
 		GLMesh::indexCount,
 		GLMesh::mode
 	};
+
+	GLMesh::VAO = MeshGenerator::createMesh(data);
 }
 
 void GLAdvancedMesh::drawMesh()

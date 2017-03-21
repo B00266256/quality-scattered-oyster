@@ -5,7 +5,7 @@ class GLAdvancedMesh : public GLMesh
 {
 public:
 	GLAdvancedMesh();
-	GLAdvancedMesh(GLfloat *vertices, GLuint vertexCount, GLfloat *uv, GLuint *indices, GLuint indexCount, GLfloat *normals, GLuint textureID);
+	GLAdvancedMesh(GLfloat *vertices, GLuint vertexCount, GLfloat *uv, GLuint *indices, GLuint indexCount, GLfloat *normals, GLuint textureID, GLenum mode = GL_TRIANGLES);
 	void setupMesh();
 	void drawMesh();
 	void setEmission(GLuint mapID);
