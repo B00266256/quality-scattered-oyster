@@ -33,7 +33,6 @@ void Terrain::init()
 
 	mapData terrainData = getData();
 	GLAdvancedMesh *mesh = new GLAdvancedMesh((GLfloat*)terrainData.vertices, terrainData.vertexCount, nullptr, terrainData.indices, terrainData.indexCount, (GLfloat*)terrainData.normals, 0, GL_TRIANGLE_STRIP);
-	terrainMesh.generateMesh();
 
 }
 
